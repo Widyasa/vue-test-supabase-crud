@@ -8,7 +8,8 @@ const {deleteData} = allApiStore()
 const deleteModel = async () => {
   try {
     const response = await deleteData(props.id, 'classes')
-    if (response.status == 200) {
+    console.log(response)
+    if (response.status == 204) {
       emit('reset-form')
     }
   } catch (e) {

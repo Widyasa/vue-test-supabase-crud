@@ -3,7 +3,7 @@ import { allApiStore, type Kelas } from '@/stores/GlobalStore'
 import { reactive, watch } from 'vue'
 
 const props = defineProps(['id'])
-const emit = defineEmits(['resetForm'])
+const emit = defineEmits(['reset-form'])
 const {getDataById, updateData} = allApiStore()
 
 const kelasState = reactive({
@@ -19,7 +19,7 @@ const updateModel = async () => {
   try {
     const response = await updateData(props.id, 'classes', kelasState)
     if (response.status == 200) {
-      emit('resetForm')
+      emit('reset-form')
     }
   } catch (e) {
     console.error(e)
