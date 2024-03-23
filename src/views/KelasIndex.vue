@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import KelasModal from '@/components/Kelas/KelasModal.vue'
 import UpdateKelasModel from '@/components/Kelas/UpdateKelasModel.vue'
+import DeleteKelasModal from '@/components/Kelas/DeleteKelasModal.vue'
 
 const id = ref('')
 const {getAllData} = allApiStore()
@@ -14,7 +15,6 @@ const getModel = async () => {
 }
 const getDataId = (kelasId:string) => {
   id.value = kelasId
-  console.log(id.value)
 }
 onMounted(() => {
   getModel()
@@ -40,9 +40,8 @@ onMounted(() => {
         <th scope="row">{{ index + 1 }}</th>
         <td>{{ kelas.class_name }}</td>
         <td>
-
-                  <button data-bs-toggle="modal" data-bs-target="#updateKelasModal" class="btn btn-warning text-white" @click="getDataId(kelas.id)">Edit</button>
-                  <button class="btn btn-danger ms-2">Delete</button>
+          <button data-bs-toggle="modal" data-bs-target="#updateKelasModal" @click="getDataId(kelas.id)" class="btn btn-warning text-white">Edit</button>
+          <button data-bs-toggle="modal" data-bs-target="#deleteKelasModal" @click="getDataId(kelas.id)" class="btn btn-danger ms-2">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -50,6 +49,7 @@ onMounted(() => {
   </div>
   <KelasModal @reset-form="getModel"/>
   <UpdateKelasModel @reset-form="getModel" :id="id"/>
+  <DeleteKelasModal @reset-form="getModel" :id="id"/>
 </template>
 
 <style scoped>

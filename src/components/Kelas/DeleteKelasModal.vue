@@ -1,9 +1,25 @@
 <script setup lang="ts">
+import { allApiStore } from '@/stores/GlobalStore'
 
+const props = defineProps(['id'])
+const emit = defineEmits(['reset-form'])
+const {deleteData} = allApiStore()
+
+const deleteModel = async () => {
+  try {
+    const response = await deleteData(props.id, 'classes')
+    if (response.status == 200) {
+      emit('reset-form')
+    }
+  } catch (e) {
+    console.error(e)
+  }
+
+}
 </script>
 
 <template>
-  <div class="modal fade" id="updateKelasModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteKelasModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

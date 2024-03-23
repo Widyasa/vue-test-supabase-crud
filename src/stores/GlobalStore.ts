@@ -43,7 +43,7 @@ export const allApiStore = defineStore('allApiStore',() => {
     return await supabase .from(tableName) .update([request]) .eq('id', id)  .select()
   }
   async function deleteData(id:string, tableName:string){
-    return await supabase .from(tableName) .delete() .eq(id)
+    return await supabase .from(tableName) .delete() .eq('id', id)
   }
   return {
     getAllData,
