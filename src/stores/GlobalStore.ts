@@ -12,6 +12,18 @@ export interface Siswa{
   address:string;
   date_of_birth: string;
   class_id: string;
+  classes: {
+    class_name : string
+  }
+  users : {
+    email : string
+  }
+
+}
+
+export interface Register {
+  email : string
+  password: string
 }
 
 export const allInterfaces = defineStore('allInterfaces', () => {
@@ -45,11 +57,24 @@ export const allApiStore = defineStore('allApiStore',() => {
   async function deleteData(id:string, tableName:string){
     return await supabase .from(tableName) .delete() .eq('id', id)
   }
+
+  async function getRelationData(){
+    return await supabase .from('students') .select(`
+    *,
+    users (
+     email
+    ),
+    classes (
+      class_name
+    )
+  `)
+  }
   return {
     getAllData,
     getDataById,
     insertData,
     updateData,
-    deleteData
+    deleteData,
+    getRelationData
   }
 })
